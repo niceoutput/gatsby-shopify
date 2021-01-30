@@ -29,7 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         shopifyId: node.shopifyId,
       },
-      component: path.resolve('.src/templates/ProductTemplate/index.js'),
+      component: path.resolve('src/templates/ProductTemplate/index.js'),
     });
   });
 }
