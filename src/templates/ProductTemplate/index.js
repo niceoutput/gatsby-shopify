@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-onchange */
 import React from 'react';
 import { graphql } from 'gatsby';
-import { Layout, ImageGallery, ProductQuantityAdder } from 'components';
+import { Layout, ImageGallery, ProductQuantityAdder, Button } from 'components';
 import { Grid, SelectWrapper, Price } from './styles';
 import CartContext from 'context/CartContext';
 import { navigate, useLocation } from '@reach/router';
@@ -41,6 +41,7 @@ const ProductTemplate = props => {
 
   return (
     <Layout>
+      <Button onClick={() => navigate(-1)}>Back to products</Button>
       <Grid>
         <div>
           <h1>{props.data.shopifyProduct.title}</h1>

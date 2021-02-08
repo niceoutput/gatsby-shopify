@@ -8,6 +8,12 @@ const query = graphql`
         node {
           products {
             ...ShopifyProductFields
+            handle
+            priceRange {
+              minVariantPrice {
+                amount
+              }
+            }
           }
           title
           description
