@@ -6,12 +6,14 @@ import {
   Title,
   Description,
 } from './styles';
+import { StyledLink } from '../StyledLink';
 
 export const CollectionTile = ({
   description,
   title,
   backgroundImage,
   sale,
+  destination,
 }) => {
   return (
     <CollectionTileWrapper>
@@ -20,6 +22,7 @@ export const CollectionTile = ({
         <div>
           <Title sale={sale}>{title}</Title>
           <Description sale={sale}>{description}</Description>
+          <StyledLink to={destination}>Shop now</StyledLink>
         </div>
       </CollectionTileContent>
     </CollectionTileWrapper>

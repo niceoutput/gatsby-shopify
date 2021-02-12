@@ -1,8 +1,10 @@
 import React from 'react';
 import CartContext from 'context/CartContext';
-import { CartItem, CartHeader, CartFooter } from './styles';
+import { CartItem, CartHeader, CartFooter, Footer } from './styles';
 import { QuantityAdjuster } from '../QuantityAdjuster';
 import { RemoveLineItem } from '../RemoveLineItem';
+import { Button } from 'components';
+import { navigate } from '@reach/router';
 
 export const CartContents = () => {
   const { checkout, updateLineItem } = React.useContext(CartContext);
@@ -14,12 +16,14 @@ export const CartContents = () => {
   return (
     <section>
       <h1>Your Cart</h1>
-      <CartHeader>
-        <div>Product</div>
-        <div>Unit Price</div>
-        <div>Quantity</div>
-        <div>Amount</div>
-      </CartHeader>
+      {checkout?.lineItems && (
+        <CartHeader>
+          <div>Product</div>
+          <div>Unit Price</div>
+          <div>Quantity</div>
+          <div>Amount</div>
+        </CartHeader>
+      )}
       {checkout?.lineItems?.map(item => (
         <CartItem key={item.variant.id}>
           <div>
@@ -38,14 +42,33 @@ export const CartContents = () => {
           </div>
         </CartItem>
       ))}
-      <CartFooter>
+      {checkout?.lineItems && (
+        <CartFooter>
+          <div>
+            <strong>Total</strong>
+          </div>
+          <div>
+            <span>{checkout?.totalPrice}</span>
+          </div>
+        </CartFooter>
+      )}
+      {!checkout?.lineItems && <h4>Your cart is empty</h4>}
+      <Footer>
         <div>
-          <strong>Total</strong>
+          <Button onClick={() => navigate(-1)}>Continue Shopping</Button>
         </div>
         <div>
-          <span>{checkout?.totalPrice}</span>
+          {!!checkout?.webUrl && (
+            <Button
+              onClick={() => {
+                window.location.href = checkout.webUrl;
+              }}
+            >
+              Checkout
+            </Button>
+          )}
         </div>
-      </CartFooter>
+      </Footer>
     </section>
   );
 };
