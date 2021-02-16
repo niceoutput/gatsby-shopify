@@ -6,6 +6,7 @@
   "author": "Tom Phillips <info@tomphill.co.uk>",
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.7",
+    "faunadb": "^4.0.3",
     "gatsby": "^2.23.12",
     "gatsby-background-image": "^1.1.1",
     "gatsby-image": "^2.4.9",
@@ -25,6 +26,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^3.10.0",
     "shopify-buy": "^2.11.0",
+    "shopify-verify-webhook": "^1.0.1",
     "styled-components": "^5.1.1",
     "styled-reset": "^4.2.0"
   },
