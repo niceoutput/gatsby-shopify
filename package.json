@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Tom Phillips <info@tomphill.co.uk>",
   "dependencies": {
+    "axios": "^0.21.1",
     "babel-plugin-styled-components": "^1.10.7",
     "faunadb": "^4.0.3",
     "gatsby": "^2.23.12",
