@@ -10,7 +10,7 @@ const client = new faunadb.Client({
 exports.handler = function (event, context, callback) {
   const isValid = verifyWebhookIntegrity(
     process.env.SHOPIFY_WEBHOOK_KEY,
-    event.headers['x-shopify-hmav-sha256'],
+    event.headers['x-shopify-hmac-sha256'],
     event.body
   );
 
@@ -27,10 +27,9 @@ exports.handler = function (event, context, callback) {
     const bodyString = JSON.stringify(body);
 
     client
-      .query(q.Get(q.Match(q.Index('product_by_id', id))))
+      .query(q.Get(q.Match(q.Index('product_by_id'), id)))
       .then(result => {
-        if (result.data.prodcut !== bodyString) {
-          // rebuild
+        if (result.data.product !== bodyString) {
           client
             .query(
               q.Update(result.ref, {
@@ -38,7 +37,7 @@ exports.handler = function (event, context, callback) {
               })
             )
             .then(() => {
-              // rebuild
+              // call rebuild
               axios.post(process.env.NETLIFY_BUILD_URL);
             })
             .catch(e => {
@@ -46,24 +45,25 @@ exports.handler = function (event, context, callback) {
             });
         }
       })
-      .catch(
-        client.query(
-          q.Create(q.Collection('products'), {
-            data: { id, product: bodyString },
+      .catch(() => {
+        client
+          .query(
+            q.Create(q.Collection('products'), {
+              data: { id, product: bodyString },
+            })
+          )
+          .then(() => {
+            // call rebuild
+            axios.post(process.env.NETLIFY_BUILD_URL);
           })
-        )
-      )
-      .then(() => {
-        //rebuild
-        axios.post(process.env.NETLIFY_BUILD_URL);
-      })
-      .catch(e => {
-        console.log('Error adding to db: ', e);
+          .catch(e => {
+            console.log('error adding to db: ', e);
+          });
       });
   } else {
     callback(null, {
       statusCode: 403,
-      body: 'Error!',
+      body: 'Error',
     });
   }
 };

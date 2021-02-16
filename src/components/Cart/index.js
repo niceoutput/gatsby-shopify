@@ -5,7 +5,6 @@ import CartContext from 'context/CartContext';
 
 export const Cart = () => {
   const { checkout } = React.useContext(CartContext);
-  console.log(checkout);
   let totalQuantity = 0;
   if (checkout) {
     checkout.lineItems.forEach(lineItem => {
