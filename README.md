@@ -1,14 +1,8 @@
-# Gatsby Shopify starter
+# Gatsby Shopify Shop
 
-**Getting started**
+**Sourcing data into Gatsby from Shopify stores via the Shopify Storefront API, rebuilds when Shopify collections update and store data changes in fauna.db**
 
-First you'll need to add a `.env` file to the root of your project consisting of:
+## Demo version
 
-```
-GATSBY_SHOP_NAME=
-GATSBY_ACCESS_TOKEN=
-```
+https://wonderfull-gatsby.netlify.app/
 
-And enter the appropriate values from your own shopify store.
-
-Then run `gatsby develop` and you're off to the races!
